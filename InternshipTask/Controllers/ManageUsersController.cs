@@ -22,6 +22,8 @@ namespace InternshipTask.Controllers
         {
             return Ok();
         }
+        [HttpPost]
+        [Route("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody]Users model)
         {
             if (ModelState.IsValid)
@@ -29,6 +31,28 @@ namespace InternshipTask.Controllers
                 _db.users.Add(model);
                 await _db.SaveChangesAsync();
             }
+            return Ok();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(Users model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _db.users.FindAsync(model.Id);
+                if(user == null)
+                {
+                    return NotFound();
+                }
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.Gender = model.Gender;
+                user.Password = model.Password;
+                user.Status = model.Status;
+                user.ManageRoleId = model.ManageRoleId;
+                _db.users.Update(user);
+                await _db.SaveChangesAsync();
+            }
+
             return Ok();
         }
     }

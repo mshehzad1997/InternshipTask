@@ -19,7 +19,7 @@ namespace InternshipTask.Models
         
         [ForeignKey("ManageRoleId")]
       
-        public virtual ManageRoles PricingPlan { get; set; }
+        public virtual ManageRoles ManageRoles { get; set; }
         public gender Gender { get; set; }
         public bool Status { get; set; }
         public string Password { get; set; }
